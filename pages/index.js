@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Image from 'next/image';
 // import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Rules from '../components/Rules';
 import styles from '../styles/Home.module.css';
 
@@ -18,8 +18,35 @@ export default function Home() {
   const [result, setResult] = useState("");
   const [status, setStatus] = useState("");
 
+  const [score, setScore] =  useState(0);
+
+
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('score', JSON.stringify(score));
+  } 
+  
+  // useEffect(() => {
+  //   const score_Store = JSON.parse(localStorage.getItem("score"));
+  //   if (score) {
+  //     setScore(parseInt(score_Store));
+  //   }
+  // }, [])
+
+
+
+  if (score < 0) {
+    setScore(0);
+  }
+  
+    // const score_Store = JSON.parse(localStorage.getItem("score"));
+    // if (score) {
+    //   setScore(parseInt(score_Store));
+    // }
+  
+
 
   function handleClick(e) {
+
     e.preventDefault();
     let result = item[value];
     setResult(result);
@@ -30,55 +57,78 @@ export default function Home() {
       setStatus("DRAW");
     } else if(name ==="scissors" && result === "paper") {
       setStatus("YOU WIN");
+      setScore(score+1);
     } else if(name ==="scissors" && result === "lizard") {
       setStatus("YOU WIN");
+      setScore(score+1);
     } else if(name ==="scissors" && result === "spock") {
       setStatus("YOU LOSE");
+      setScore(score-1);
     } else if(name ==="scissors" && result === "rock") {
       setStatus("YOU LOSE");
+      setScore(score-1);
     } else if(name ==="paper" && result === "scissors") {
       setStatus("YOU LOSE");
+      setScore(score-1);
     } else if(name === "paper" && result === "paper") {
       setStatus("DRAW");
     } else if(name === "paper" && result === "rock") {
       setStatus("YOU WIN");
+      setScore(score+1);
     } else if(name === "paper" && result === "spock") {
       setStatus("YOU WIN");
+      setScore(score+1);
     } else if(name === "paper" && result === "scissors") {
       setStatus("YOU LOSE");
+      setScore(score-1);
     } else if(name === "paper" && result === "lizard") {
       setStatus("YOU LOSE");
+      setScore(score-1);
     } else if(name === "rock" && result === "rock") {
       setStatus("DRAW");
     } else if(name === "rock" && result === "paper") {
       setStatus("YOU LOSE");
+      setScore(score-1);
     } else if(name === "rock" && result === "scissors") {
       setStatus("YOU WIN");
+      setScore(score+1);
     } else if(name === "rock" && result === "lizard") {
       setStatus("YOU WIN");
+      setScore(score+1);
     } else if(name === "rock" && result === "spock") {
       setStatus("YOU LOSE");
+      setScore(score-1);
     } else if(name === "lizard" && result === "lizard") {
       setStatus("DRAW");
     } else if(name === "lizard" && result === "scissors") {
       setStatus("YOU LOSE");
+      setScore(score-1);
     } else if(name === "lizard" && result === "rock") {
       setStatus("YOU LOSE");
+      setScore(score-1);
     } else if(name === "lizard" && result === "paper") {
       setStatus("YOU WIN");
+      setScore(score+1);
     } else if(name === "lizard" && result === "spock") {
       setStatus("YOU WIN");
+      setScore(score+1);
     } else if(name === "spock" && result === "spock") {
       setStatus("DRAW");
     } else if(name === "spock" && result === "rock") {
       setStatus("YOU WIN");
+      setScore(score+1);
     } else if(name === "spock" && result === "paper") {
       setStatus("YOU LOSE");
+      setScore(score-1);
     } else if(name === "spock" && result === "scissors") {
       setStatus("YOU WIN");
+      setScore(score+1);
     } else if(name === "spock" && result === "lizard") {
       setStatus("YOU LOSE");
+      setScore(score-1);
     }
+
+    
 
   }
 
@@ -118,7 +168,7 @@ export default function Home() {
             
             <div className='bg-gray-100 w-24 sm:w-28 text-center rounded-md shadow-xl my-2.5'>
               <p className='text-scoreText font-semibold text-sm pt-1'>SCORE</p>
-              <p className="text-6xl font-bold pb-1">0</p>
+              <p className="text-6xl font-bold pb-1">{ score }</p>
             </div>
 
           </div>
